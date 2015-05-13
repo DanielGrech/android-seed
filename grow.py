@@ -21,8 +21,8 @@ class TemplateWriter():
 			'{application_id}' : application_id,
 			'{app_class_prefix}' : app_class_prefix,
 			'{compile_sdk_version}' : compile_sdk_version,
-	        '{min_sdk_version}' : min_sdk_version,
-	        '{target_sdk_version}' : target_sdk_version,
+			'{min_sdk_version}' : min_sdk_version,
+			'{target_sdk_version}' : target_sdk_version,
 		}
 
 	def __rename_folders(self):
@@ -41,18 +41,18 @@ class TemplateWriter():
 					os.rename(full_dir_path, root_prefix + self.app_package_name_prefix)
 
 		for root, dirs, files in os.walk(root_folder):
-			root_prefix = r + "/"
+			root_prefix = root + "/"
 			for f in files:
 				if f.startswith('RENAME_ME_'):
-					os.rename(root_prefix + f, root_prefix + self.app_class_prefix)
+					os.rename(root_prefix + f, root_prefix + f.replace('RENAME_ME_', self.app_class_prefix))
 
 	def __create_readme(self):
-		f = open(join(self.output_folder, 'README.md'), 'w')
-		f.write(self.app_name + '\n=========')
+		f = open(join(root_folder, 'README.md'), 'w')
+		f.write(self.app_class_prefix + '\n=========')
 		f.close()
 
 	def __run_replacement(self):
-		for root, dirs, files in os.walk(self.output_folder):
+		for root, dirs, files in os.walk(root_folder):
 			for filename in files:
 				fname = join(root, filename)
 				contents = open(fname).read()
@@ -64,8 +64,8 @@ class TemplateWriter():
 
 	def create(self):
 		self.__rename_folders()
-		# self.__create_readme()
-		# self.__run_replacement()
+		self.__create_readme()
+		self.__run_replacement()
 
 
 def main():
