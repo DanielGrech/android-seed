@@ -1,0 +1,47 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+    description = 'Create gradle wrapper files'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    }
+}
+
+subprojects {
+    ext {
+        config = [
+                applicationId : "{application_id}",
+
+                compileSdkVersion : {compile_sdk_version},
+                buildToolsVersion : '22.0.1',
+                minSdkVersion : {min_sdk_version},
+                targetSdkVersion : {target_sdk_version},
+
+                testOptions : {
+                    events 'passed', 'failed'
+                    displayGranularity 2
+                    showExceptions true
+                    showStackTraces true
+                    showCauses true
+                    exceptionFormat 'full'
+                }
+        ]
+    }
+}

@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3.1'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.0.3-beta'
+    testCompile 'org.assertj:assertj-core:1.7.1'
+}
+
+
+test {
+    maxParallelForks 4
+    testLogging config.testOptions
+}

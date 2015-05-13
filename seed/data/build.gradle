@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+        }
+    }
+}
+
+dependencies {
+    compile project(":model")
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'io.realm:realm-android:0.80.2'
+    compile 'com.facebook.stetho:stetho:1.1.1'
+    compile 'com.facebook.stetho:stetho-okhttp:1.1.1'
+    compile 'io.reactivex:rxandroid:0.24.0'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:3.0-SNAPSHOT'
+    testCompile 'org.mockito:mockito-core:2.0.3-beta'
+    testCompile 'org.assertj:assertj-core:1.7.1'
+}
+
+// Display more verbose information when running tests from CLI
+tasks.withType(Test).whenTaskAdded { testTask ->
+    testTask.maxParallelForks 4
+    testTask.testLogging config.testOptions
+}
