@@ -1,8 +1,6 @@
 android-seed
 ========
 
-A template/bootstrap Android app preconfigured with some common classes &amp; libraries
-
 A seed for new Android projects with some nice structure/libraries already set up
 
 Usage
