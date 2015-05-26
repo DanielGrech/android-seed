@@ -2,7 +2,7 @@ package com.{company_name}.android.{app_package_name_prefix}.util;
 
 import android.view.View;
 
-import com.{company_name}.android.{app_package_name_prefix}.{app_package_name_prefix}TestRunner;
+import com.{company_name}.android.{app_package_name_prefix}.{app_class_prefix}TestRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

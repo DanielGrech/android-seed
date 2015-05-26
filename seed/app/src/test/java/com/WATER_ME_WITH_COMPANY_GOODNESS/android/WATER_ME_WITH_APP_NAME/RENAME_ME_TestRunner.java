@@ -4,7 +4,7 @@ import android.app.Application;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import com.{company_name}.android.{app_package_name_prefix}.data.BuildConfig;
+import com.{company_name}.android.{app_package_name_prefix}.BuildConfig;
 
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricGradleTestRunner;
