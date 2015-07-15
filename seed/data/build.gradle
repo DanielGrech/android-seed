@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion config.minSdkVersion
         targetSdkVersion config.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode config.versionCode
+        versionName config.versionName
     }
 
     buildTypes {
@@ -32,20 +32,20 @@ android {
 
 dependencies {
     compile project(":model")
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile "com.android.support:support-v4:22.2.0"
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'io.realm:realm-android:0.80.2'
+    compile 'io.realm:realm-android:0.81.1'
     compile 'com.facebook.stetho:stetho:1.1.1'
     compile 'com.facebook.stetho:stetho-okhttp:1.1.1'
-    compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'io.reactivex:rxandroid:0.25.0'
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.0-SNAPSHOT'
-    testCompile 'org.mockito:mockito-core:2.0.3-beta'
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.mockito:mockito-core:2.0.8-beta'
     testCompile 'org.assertj:assertj-core:1.7.1'
 }
 
-// Display more verbose information when running tests from CLI
 tasks.withType(Test).whenTaskAdded { testTask ->
     testTask.maxParallelForks 4
     testTask.testLogging config.testOptions

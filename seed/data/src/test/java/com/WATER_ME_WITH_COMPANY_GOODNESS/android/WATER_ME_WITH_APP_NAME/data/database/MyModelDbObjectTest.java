@@ -1,6 +1,6 @@
 package com.{company_name}.android.{app_package_name_prefix}.data.database;
 
-import com.{company_name}.android.{app_package_name_prefix}.data.{app_package_name_prefix}DataTestRunner;
+import com.{company_name}.android.{app_package_name_prefix}.data.{app_package_name_prefix}.DataTestRunner;
 import com.{company_name}.{app_package_name_prefix}.model.MyModel;
 
 import org.assertj.core.api.AbstractAssert;

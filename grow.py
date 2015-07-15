@@ -20,6 +20,7 @@ class TemplateWriter():
 			'{app_package_name_prefix}' : app_package_name_prefix,
 			'{application_id}' : application_id,
 			'{app_class_prefix}' : app_class_prefix,
+			'{app_class_prefix_lowercase}' : app_class_prefix[0].lower() + app_class_prefix[1:],
 			'{compile_sdk_version}' : compile_sdk_version,
 			'{min_sdk_version}' : min_sdk_version,
 			'{target_sdk_version}' : target_sdk_version,

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.{company_name}.android.{app_package_name_prefix}.R;
 import com.{company_name}.android.{app_package_name_prefix}.mvp.presenter.Presenter;
+import com.{company_name}.android.{app_package_name_prefix}.module.AppServicesComponent;
 
 import butterknife.InjectView;
 import butterknife.OnPageChange;
@@ -12,7 +13,7 @@ import butterknife.OnPageChange;
 public class HomeActivity extends PresentableActivity<Presenter> {
 
     @Override
-    protected Presenter createPresenter() {
+    protected Presenter createPresenter(AppServicesComponent component) {
         // TODO!
         throw new IllegalStateException("Not implemented!");
     }

@@ -1,19 +1,16 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.2'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+        classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.0.2'
     }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2.1'
+    gradleVersion = '2.4'
     description = 'Create gradle wrapper files'
 }
 
@@ -33,6 +30,16 @@ subprojects {
                 buildToolsVersion : '22.0.1',
                 minSdkVersion : {min_sdk_version},
                 targetSdkVersion : {target_sdk_version},
+
+                versionCode : 1,
+                versionName : "1.0",
+
+                releaseSigning : [
+                    storeFile : 'release.keystore',
+                    storePassword : System.getenv('RELEASE_STORE_PASSWORD'),
+                    alias : System.getenv('RELEASE_KEY_ALIAS'),
+                    aliasPassword: System.getenv('RELEASE_KEY_ALIAS_PASSWORD')
+                ],
 
                 testOptions : {
                     events 'passed', 'failed'

@@ -1,13 +1,18 @@
 apply plugin: 'java'
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.7.2.201409121644"
+}
 
 sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'org.immutables:value:2.0.16'
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.3-beta'
+    testCompile 'org.mockito:mockito-core:2.0.8-beta'
     testCompile 'org.assertj:assertj-core:1.7.1'
 }
 

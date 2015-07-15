@@ -13,7 +13,17 @@ import org.robolectric.annotation.Config;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
+import rx.TestSchedulerRule;
+
 public class {app_class_prefix}TestRunner extends RobolectricGradleTestRunner {
+
+    static {
+        // Argh! There is a strongly typed `RxJavaPlugins.registerSchedulersHook(), but it
+        // needs to be loaded before the `Schedulers` class is loaded. This is the only
+        // dodgy way to guarantee our hook is registered first
+        System.setProperty("rxjava.plugin.RxJavaSchedulersHook.implementation",
+                TestSchedulerRule.RxSchedulersHook.class.getName());
+    }
 
     public {app_class_prefix}TestRunner(Class<?> klass) throws InitializationError {
         super(klass);
@@ -25,6 +35,8 @@ public class {app_class_prefix}TestRunner extends RobolectricGradleTestRunner {
         if (config == null) {
             return null;
         } else {
+            final Config methodConfig = method.getAnnotation(Config.class);
+
             return new DelegatingConfig(config) {
                 @Override
                 public Class<?> constants() {
@@ -32,8 +44,19 @@ public class {app_class_prefix}TestRunner extends RobolectricGradleTestRunner {
                 }
 
                 @Override
+                public String packageName() {
+                    // We assume that the test runner class is in the root package..
+                    return {app_class_prefix}TestRunner.class.getPackage().getName();
+                }
+
+                @Override
                 public int[] sdk() {
-                    return new int[]{Build.VERSION_CODES.LOLLIPOP};
+                    if (methodConfig != null && methodConfig.sdk() != null && methodConfig.sdk().length > 0) {
+                        // If the method specifies a different SDK, let's use it
+                        return methodConfig.sdk();
+                    } else {
+                        return new int[]{Build.VERSION_CODES.KITKAT};
+                    }
                 }
             };
         }
