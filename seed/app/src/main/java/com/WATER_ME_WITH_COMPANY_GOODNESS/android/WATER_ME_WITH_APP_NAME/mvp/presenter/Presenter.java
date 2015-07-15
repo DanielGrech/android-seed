@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import com.{company_name}.android.{app_package_name_prefix}.activity.BaseActivity;
+import com.{company_name}.android.{app_package_name_prefix}.fragment.BaseFragment;
+import com.{company_name}.android.{app_package_name_prefix}.util.RxUtils;
 import com.{company_name}.android.{app_package_name_prefix}.mvp.view.MvpView;
 
 import rx.Observable;
@@ -17,7 +20,7 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- *
+ * Base class for all presenters (In the Model-View-Presenter architecture) within the application
  */
 public class Presenter<V extends MvpView> {
 
@@ -27,6 +30,9 @@ public class Presenter<V extends MvpView> {
 
     public Presenter(@NonNull V view) {
         this.view = view;
+        if (this.view == null) {
+            throw new IllegalArgumentException("view != null");
+        }
     }
 
     protected V getView() {
@@ -65,13 +71,13 @@ public class Presenter<V extends MvpView> {
 
     }
 
-    protected <R> void bind(Observable<R> observable, Observer<? super R> observer) {
+    protected <R> Subscription bind(Observable<R> observable, Observer<? super R> observer) {
         final Observable<R> boundObservable;
 
-        if (view instanceof Fragment) {
-            boundObservable = AppObservable.bindFragment(view, observable);
-        } else if (getContext() instanceof Activity) {
-            boundObservable = AppObservable.bindActivity((Activity) getContext(), observable);
+        if (view instanceof BaseFragment) {
+            boundObservable = RxUtils.bindFragment((BaseFragment) view, observable);
+        } else if (getContext() instanceof BaseActivity) {
+            boundObservable = RxUtils.bindActivity((BaseActivity) getContext(), observable);
         } else {
             boundObservable = observable;
         }
@@ -79,11 +85,7 @@ public class Presenter<V extends MvpView> {
         final Subscription subscription
                 = boundObservable.subscribeOn(Schedulers.io()).subscribe(observer);
 
-        if (subscriptions.isUnsubscribed()) {
-            subscriptions = new CompositeSubscription();
-        }
-
-        subscriptions.add(subscription);
+        return subscription;
     }
 
     protected class SimpleSubscriber<T> extends Subscriber<T> {
