@@ -1,0 +1,2 @@
+pystache==0.5.4
+dotmap==1.1.1
