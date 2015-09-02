@@ -1,2 +1,2 @@
-{app_class_prefix}
+{{app_class_prefix}}
 =========

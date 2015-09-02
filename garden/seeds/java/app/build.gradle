@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'spoon'
 
-apply from: 'buildscripts/jacoco.gradle'
-apply from: 'buildscripts/utils.gradle'
+apply from: '../buildscripts/jacoco.gradle'
+apply from: '../buildscripts/utils.gradle'
 
 android {
     compileSdkVersion config.compileSdkVersion
@@ -97,33 +97,46 @@ android {
 
 dependencies {
     compile project(":model")
-    compile project(":data")
+    compile project(":network")
     compile fileTree(dir: 'libs', include: '*.jar')
-    compile "com.android.support:support-v4:22.2.0"
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:recyclerview-v7:22.2.0'
-    compile 'com.jakewharton.timber:timber:3.1.0'
-    compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.github.bumptech.glide:glide:3.6.0'
-    compile 'com.google.dagger:dagger:2.0.1'
-    compile 'javax.annotation:jsr250-api:1.0'
-    compile 'com.facebook.stetho:stetho-timber:1.1.1'
-    compile 'com.facebook.device.yearclass:yearclass:1.0.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
-    apt 'com.google.dagger:dagger-compiler:2.0.1'
+    compile "com.android.support:appcompat-v7:${versions.androidSupport}"
+    compile "com.android.support:support-v4:${versions.androidSupport}"
+    compile "com.android.support:appcompat-v7:${versions.androidSupport}"
+    compile "com.android.support:recyclerview-v7:${versions.androidSupport}"
+    compile "com.crashlytics.android:crashlytics:${versions.crashlyticsClient}"
+    compile "com.google.dagger:dagger:${versions.dagger}"
+    compile "uk.co.chrisjenx:calligraphy:${versions.calligraphy}"
+    compile "com.jakewharton.timber:timber:${versions.timber}"
+    compile "com.jakewharton:butterknife:${versions.butterknife}"
+    compile "com.squareup.picasso:picasso:${versions.picasso}"
+    compile "javax.annotation:jsr250-api:${versions.jsr250}"
+    compile "com.facebook.stetho:stetho-timber:${versions.stetho}"
+    compile "com.facebook.device.yearclass:yearclass:${versions.yearClass}"
+    compile "com.lacronicus:easydatastorelib:${versions.easyDataStore}"
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.0'
-    testCompile 'org.robolectric:shadows-support-v4:3.0'
-    testCompile 'org.mockito:mockito-core:2.0.8-beta'
-    testCompile 'org.assertj:assertj-core:1.7.1'
+    compile "io.reactivex:rxandroid:${versions.rxAndroid}"
+    compile "com.jakewharton.rxbinding:rxbinding:${versions.rxBinding}"
+    compile "com.jakewharton.rxbinding:rxbinding-support-v4:${versions.rxBinding}"
+    compile "com.jakewharton.rxbinding:rxbinding-design:${versions.rxBinding}"
+    compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:${versions.rxBinding}"
+    compile "com.trello:rxlifecycle:${versions.rxLifecycle}"
 
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
-    androidTestCompile 'com.android.support.test:runner:0.3'
-    androidTestCompile 'com.android.support.test:rules:0.3'
-    androidTestCompile 'com.squareup.spoon:spoon-client:1.1.9'
-    androidTestCompile 'org.assertj:assertj-core:1.7.1'
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${versions.leakCanary}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakCanary}"
+
+    apt "com.google.dagger:dagger-compiler:${versions.dagger}"
+
+    testCompile "junit:junit:${versions.junit}"
+    testCompile "org.robolectric:robolectric:${versions.robolectric}"
+    testCompile "org.robolectric:shadows-support-v4:${versions.robolectric}"
+    testCompile "org.mockito:mockito-core:${versions.mockito}"
+    testCompile "org.assertj:assertj-core:${versions.assertJ}"
+
+    androidTestCompile "com.android.support.test.espresso:espresso-core:${versions.espresso}"
+    androidTestCompile "com.android.support.test:runner:${versions.esspressoSupport}"
+    androidTestCompile "com.android.support.test:rules:${versions.esspressoSupport}"
+    androidTestCompile "com.squareup.spoon:spoon-client:${versions.spoon}"
+    androidTestCompile "org.assertj:assertj-core:${versions.assertJ}"
 }
 
 // Display more verbose information when running tests from CLI

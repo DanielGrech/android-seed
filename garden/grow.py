@@ -14,18 +14,10 @@ def render_templates(config):
 		for filename in [f for f in files if f.endswith(('.xml', '.java', '.kt', '.gradle', '.properties'))]:
 			fname = os.path.join(root, filename)
 
-			print "About to read file: " + fname
-
 			new_contents = str(renderer.render_path(fname, config))
 
-			print "\n\n=========\n\n"
-			print new_contents
-			print "\n\n=========\n\n"
-
-			print "Writing to file: " + fname
 			with open(fname, 'w') as output_file:
 				output_file.write(new_contents)
-			print "Finished writing to file: " + fname
 
 
 def create_readme(config):
