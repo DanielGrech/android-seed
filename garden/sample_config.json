@@ -1,10 +1,8 @@
 {
-	"language" : "java",
 	"output_dir" : "/Users/dgrech/Desktop/seed_test/",
 	"company_name" : "vivant",
 	"app_package_name_prefix" : "vivanttest",
 	"app_class_prefix": "V",
-	"app_class_prefix_lowercase" : "v",
 	"application_id" : "com.vivant.android.androidseedtest",
 	"compile_sdk_version" : 23,
 	"build_tools_version" : "23.0.0",

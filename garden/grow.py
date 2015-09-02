@@ -49,15 +49,39 @@ def rename_files_and_directories(config):
 def copy_template_to_output_dir(root_template_folder, config):
 	shutil.copytree(root_template_folder, config.output_dir)
 
-def main():
-	config = DotMap(json.loads(''.join(fileinput.input())))
+def validate_config(config):
+	if 'language' in config:
+		if config.language != 'java' and config.language != 'kotlin':
+			raise Exception("Unknown language " + config.language)
+	else:
+		config['language'] = 'java'
 
+	required_fields = [
+		'output_dir', 'company_name', 'app_package_name_prefix',
+		'app_class_prefix', 'application_id', 'compile_sdk_version',
+		'build_tools_version', 'min_sdk_version', 'target_sdk_version'
+		]
+
+	for req_field in required_fields:
+		if req_field not in config:
+			raise Exception("Missing required field: " + req_field)
+
+	config['app_class_prefix_lowercase'] =  config.app_class_prefix[0].lower() + config.app_class_prefix[1:]
+
+	return config
+
+def grow(config):
+	config = validate_config(config)
 	seed_template_folder = os.path.dirname(os.path.realpath(__file__)) + "/seeds/" + config.language
 	
 	copy_template_to_output_dir(seed_template_folder, config)
 	rename_files_and_directories(config)
 	create_readme(config)
 	render_templates(config)
+
+def main():
+	config = DotMap(json.loads(''.join(fileinput.input())))
+	grow(config)
 	
 if __name__ == '__main__':
 	main()

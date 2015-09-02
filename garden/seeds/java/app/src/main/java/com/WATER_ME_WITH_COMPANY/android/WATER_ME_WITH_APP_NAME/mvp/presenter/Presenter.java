@@ -10,6 +10,7 @@ import com.{{company_name}}.android.{{app_package_name_prefix}}.activity.BaseAct
 import com.{{company_name}}.android.{{app_package_name_prefix}}.fragment.BaseFragment;
 import com.{{company_name}}.android.{{app_package_name_prefix}}.util.RxUtils;
 import com.{{company_name}}.android.{{app_package_name_prefix}}.mvp.view.MvpView;
+import com.{{company_name}}.android.{{app_package_name_prefix}}.module.AppServicesComponent;
 
 import rx.Observable;
 import rx.Observer;
@@ -21,13 +22,13 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Base class for all presenters (In the Model-View-Presenter architecture) within the application
  */
-public class Presenter<V extends MvpView> {
+public abstract class Presenter<V extends MvpView> {
 
     private final V view;
 
     private CompositeSubscription subscriptions;
 
-    public Presenter(@NonNull V view) {
+    public Presenter(@NonNull V view, AppServicesComponent component) {
         this.view = view;
         if (this.view == null) {
             throw new IllegalArgumentException("view != null");
