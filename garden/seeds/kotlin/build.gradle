@@ -1,0 +1,92 @@
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'http://download.crashlytics.com/maven' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.0'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.1230'
+        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.16.0'
+        classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.0.3'
+        classpath 'pl.itako:icon-version:1.1.2'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.6'
+    description = 'Create gradle wrapper files'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'http://download.crashlytics.com/maven' }
+    }
+
+    tasks.withType(JavaForkOptions) {
+        // Dont lose focus when running tests from CLI
+        jvmArgs '-Djava.awt.headless=true'
+    }
+}
+
+subprojects {
+    ext {
+        config = [
+                appName : "{{app_class_prefix}}",
+                applicationId : "com.{{company_name}}.android.{{app_package_name_prefix}}",
+
+                compileSdkVersion : {{compile_sdk_version}},
+                buildToolsVersion : "{{build_tools_version}}",
+                minSdkVersion : {{min_sdk_version}},
+                targetSdkVersion : {{target_sdk_version}},
+
+                versionCode : 1,
+                versionName : "1.0",
+
+                releaseSigning : [
+                        storeFile : 'release.keystore',
+                        storePassword : System.getenv('RELEASE_STORE_PASSWORD'),
+                        alias : System.getenv('RELEASE_KEY_ALIAS'),
+                        aliasPassword: System.getenv('RELEASE_KEY_ALIAS_PASSWORD')
+                ],
+
+                testOptions : {
+                    events 'passed', 'failed'
+                    displayGranularity 2
+                    showExceptions true
+                    showStackTraces true
+                    showCauses true
+                    exceptionFormat 'full'
+                }
+        ]
+
+        versions = [
+                kotlin : "0.12.1230",
+                anko : "0.6.3-19",
+                androidSupport : "23.0.0",
+                rxAndroid : "1.0.1",
+                rxBinding : "0.2.0",
+                rxLifecycle : "0.2.0",
+                calligraphy : "2.1.0",
+                retrofit : "1.9.0",
+                easyDataStore : "1.0.2",
+                gson : "2.3.1",
+                okHttp : "2.4.0",
+                rxJava : "1.0.14",
+                timber : "3.1.0",
+                picasso : "2.5.2",
+                jsr250 : "1.0",
+                crashlyticsClient : "1.1.13",
+                yearClass : "1.0.1",
+                stetho : "1.1.1",
+                dagger : "2.0.1",
+                jacoco : "0.7.2.201409121644",
+                mockito : "2.0.31-beta",
+                robolectric : "3.0",
+                junit : "4.12",
+                assertJ : "1.7.1",
+                leakCanary : "1.3.1"
+        ]
+    }
+}

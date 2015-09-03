@@ -1,0 +1,17 @@
+apply plugin: 'kotlin'
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = versions.jacoco
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+    testCompile "junit:junit:${versions.junit}"
+    testCompile "org.mockito:mockito-core:${versions.mockito}"
+}
+
+test {
+    maxParallelForks 4
+    testLogging config.testOptions
+}

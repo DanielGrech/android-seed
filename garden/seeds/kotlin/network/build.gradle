@@ -1,0 +1,25 @@
+apply plugin: 'kotlin'
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = versions.jacoco
+}
+
+dependencies {
+    compile project(":model")
+    compile ("com.squareup.retrofit:retrofit:${versions.retrofit}") {
+        exclude group: 'com.squareup.okhttp', module: 'okhttp'
+    }
+    compile "com.squareup.okhttp:okhttp:${versions.okHttp}"
+    compile "io.reactivex:rxjava:${versions.rxJava}"
+    compile "com.google.code.gson:gson:${versions.gson}"
+
+    testCompile "junit:junit:${versions.junit}"
+    testCompile "org.mockito:mockito-core:${versions.mockito}"
+    testCompile "com.squareup.okhttp:mockwebserver:${versions.okHttp}"
+}
+
+test {
+    maxParallelForks 4
+    testLogging config.testOptions
+}

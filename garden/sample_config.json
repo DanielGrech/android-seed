@@ -1,4 +1,5 @@
 {
+	"language" : "kotlin",
 	"output_dir" : "/Users/dgrech/Desktop/seed_test/",
 	"company_name" : "vivant",
 	"app_package_name_prefix" : "vivanttest",
