@@ -113,7 +113,7 @@ public class TestUtils {
      */
     public static AppServicesComponent createAppComponent({{app_class_prefix}}Module module) {
         return DaggerAppServicesComponent.builder()
-                .kotlinExpModule(module)
+                .{{app_class_prefix_lowercase}}Module(module)
                 .build();
     }
 }

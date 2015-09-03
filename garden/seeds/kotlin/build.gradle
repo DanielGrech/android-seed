@@ -34,7 +34,7 @@ subprojects {
     ext {
         config = [
                 appName : "{{app_class_prefix}}",
-                applicationId : "com.{{company_name}}.android.{{app_package_name_prefix}}",
+                applicationId : "{{application_id}}",
 
                 compileSdkVersion : {{compile_sdk_version}},
                 buildToolsVersion : "{{build_tools_version}}",
