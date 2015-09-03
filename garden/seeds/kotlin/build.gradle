@@ -64,7 +64,7 @@ subprojects {
         versions = [
                 kotlin : "0.12.1230",
                 anko : "0.6.3-19",
-                androidSupport : "23.0.0",
+                androidSupport : "{{compile_sdk_version}}.0.0",
                 rxAndroid : "1.0.1",
                 rxBinding : "0.2.0",
                 rxLifecycle : "0.2.0",

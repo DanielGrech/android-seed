@@ -138,7 +138,6 @@ dependencies {
     compile "io.reactivex:rxandroid:${versions.rxAndroid}"
     compile "com.jakewharton.rxbinding:rxbinding-kotlin:${versions.rxBinding}"
     compile "com.jakewharton.rxbinding:rxbinding-support-v4-kotlin:${versions.rxBinding}"
-    compile "com.jakewharton.rxbinding:rxbinding-design-kotlin:${versions.rxBinding}"
     compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7-kotlin:${versions.rxBinding}"
     compile "com.trello:rxlifecycle:${versions.rxLifecycle}"
 
