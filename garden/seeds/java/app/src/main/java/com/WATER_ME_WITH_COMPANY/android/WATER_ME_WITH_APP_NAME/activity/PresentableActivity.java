@@ -13,7 +13,7 @@ import com.{{company_name}}.android.{{app_package_name_prefix}}.mvp.presenter.Pr
  */
 abstract class PresentableActivity<T extends Presenter> extends BaseActivity {
 
-    private T presenter;
+    T presenter;
 
     /**
      * Return a presenter to use for this activity. This will only be called once per activity,

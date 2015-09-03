@@ -1,4 +1,4 @@
-package com.{{company_name}}.{{app_package_name_prefix}}.data.network;
+package com.{{company_name}}.{{app_package_name_prefix}}.network;
 
 
 import retrofit.http.GET;

@@ -33,6 +33,13 @@ android {
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
 
+        manifestPlaceholders = [
+                // Want QA's to get a crash free build, but devs on their local machine
+                // should focus on being as efficient as possible
+                "useLargeHeap" : "${isCiBuild()}"
+        ]
+
+        buildConfigField "boolean", "CRASHLYTICS_ENABLED", "${isCiBuild()}"
         buildConfigField "boolean", "LEAK_CANARY_ENABLED", "${!isCiBuild()}"
 
         buildConfigField "String", "BUILD_TIME", "\"${getBuildTime()}\""

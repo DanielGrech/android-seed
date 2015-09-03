@@ -14,12 +14,12 @@ public abstract class PresentableFragment<T extends Presenter> extends BaseFragm
 
     private T presenter;
 
-    protected abstract T createPresenter(AppServicesComponent servicesComponent);
+    protected abstract T createPresenter(AppServicesComponent servicesComponent, Bundle savedInstanceState);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = createPresenter(app.getAppServicesComponent());
+        presenter = createPresenter(app.getAppServicesComponent(), savedInstanceState);
         if (presenter == null) {
             throw new IllegalStateException("presenter == null");
         }

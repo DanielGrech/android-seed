@@ -25,7 +25,15 @@ def createJacocoTask(variant) {
                            '**/*$$*.*',
                            '**/*_MembersInjector.*',
                            '**/BuildConfig.*',
-                           '**/Manifest*.*']
+                           '**/Manifest*.*',
+
+                           // App-specific classes
+                           '**/MockTreatManager*.class',
+                           'com/{{company_name}}/android/{{app_package_name_prefix}}/module/*',
+                           'com/{{company_name}}/android/{{app_package_name_prefix}}/mvp/view/*',
+
+                           // These classes either aren't testable or aren't important..
+                           'com/{{company_name}}/android/{{app_package_name_prefix}}/util/CrashlyticsLogger.*']
         )
 
         def coverageSourceDirs = ["${rootDir}/app/src/main/java"]

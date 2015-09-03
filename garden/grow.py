@@ -43,7 +43,7 @@ def rename_files_and_directories(config):
 	for root, dirs, files in os.walk(config.output_dir):
 			root_prefix = root + "/"
 			for f in files:
-				if f.startswith('WATER_ME_WITH_CLASS_PREFIX_'):
+				if 'WATER_ME_WITH_CLASS_PREFIX_' in f:
 					os.renames(root_prefix + f, root_prefix + f.replace('WATER_ME_WITH_CLASS_PREFIX_', config.app_class_prefix))
 
 def copy_template_to_output_dir(root_template_folder, config):
