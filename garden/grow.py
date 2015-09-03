@@ -70,8 +70,8 @@ def validate_config(config):
 
 	return config
 
-def grow(config):
-	config = validate_config(config)
+def grow(config_dict):
+	config = validate_config(DotMap(config_dict))
 	seed_template_folder = os.path.dirname(os.path.realpath(__file__)) + "/seeds/" + config.language
 	
 	copy_template_to_output_dir(seed_template_folder, config)
@@ -80,8 +80,8 @@ def grow(config):
 	render_templates(config)
 
 def main():
-	config = DotMap(json.loads(''.join(fileinput.input())))
-	grow(config)
+	json_data = json.loads(''.join(fileinput.input()))
+	grow(json_data)
 	
 if __name__ == '__main__':
 	main()
