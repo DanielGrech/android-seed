@@ -28,7 +28,6 @@ def createJacocoTask(variant) {
                            '**/Manifest*.*',
 
                            // App-specific classes
-                           '**/MockTreatManager*.class',
                            'com/{{company_name}}/android/{{app_package_name_prefix}}/module/*',
                            'com/{{company_name}}/android/{{app_package_name_prefix}}/mvp/view/*',
 
