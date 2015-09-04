@@ -34,6 +34,46 @@
 				color: #FFFFFF;
 			}
 		</style>
+
+		<script>
+			function validateForm() {		
+				var formElems = [
+					"company_name", 
+					"app_package_name_prefix",
+					"app_class_prefix",
+					"application_id",
+					"build_tools_version",
+					"compile_sdk_version",
+					"min_sdk_version",
+					"target_sdk_version",
+					"language"
+				];
+
+				var form = document.forms["input_form"];
+				formElems.forEach(function(elem){
+					form[elem].required = true;
+				});
+
+				var firstInvalidElem = null
+				var isValid = formElems.reduce(function(prevVal, currentVal, index) {
+					var validity = form[currentVal].validity
+					var fieldValid = (validity == null || validity.valid)
+
+					console.log(form[currentVal].name + " -> " + fieldValid)
+					if (firstInvalidElem == null && !fieldValid) {
+						firstInvalidElem = form[currentVal]
+					}
+
+					return prevVal && fieldValid;
+				}, true);
+
+				if (firstInvalidElem != null) {
+					firstInvalidElem.focus();
+				}
+
+				return isValid;
+			}
+		</script>
 	</head>
 	<body>
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -53,10 +93,10 @@
 
 		    <main class="mdl-layout__content">
 					
-					<section  class="mdl-layout__tab-panel is-active" id="tab-generator">
+					<section class="mdl-layout__tab-panel is-active" id="tab-generator">
 						<div class="page-content">
 							<div class="card-wide">
-								<form action="/grow" method="post">
+								<form name="input_form" action="/grow" method="post" onsubmit="return validateForm()">
 									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 										<input class="mdl-textfield__input" type="text" id="company_name" name="company_name"/>
 										<label class="mdl-textfield__label" for="company_name">Company name</label>
