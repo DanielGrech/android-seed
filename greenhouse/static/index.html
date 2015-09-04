@@ -81,147 +81,141 @@
 				<div class="mdl-layout__header-row">
 					<span class="mdl-layout-title color_white">Android Seed</span>
 				</div>
-
-				<!-- Tabs -->
-			    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-			      <a href="#tab-generator" class="mdl-layout__tab is-active">Plant</a>
-			      <a href="#tab-about" class="mdl-layout__tab">About</a>
-			    </div>
-
-				
+			
 		    </header>
 
 		    <main class="mdl-layout__content">
-					
-					<section class="mdl-layout__tab-panel is-active" id="tab-generator">
-						<div class="page-content">
-							<div class="card-wide">
-								<form name="input_form" action="/grow" method="post" onsubmit="return validateForm()">
-									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-										<input class="mdl-textfield__input" type="text" id="company_name" name="company_name"/>
-										<label class="mdl-textfield__label" for="company_name">Company name</label>
-									</div>
-
-									<span>
-										<div id="tt_company_name" class="icon material-icons" tabindex="-1">help</div>
-										<div class="mdl-tooltip" for="tt_company_name">Appears in the generated package path. <br>Eg. if the class packages was <strong>com.google.android.gmail</strong>, you would enter <i>google</i> here</div>
-									</span>
-
-									<br />
-
-									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-										<input class="mdl-textfield__input" type="text" id="app_package_name_prefix" name="app_package_name_prefix"/>
-										<label class="mdl-textfield__label" for="app_package_name_prefix">Package Name Prefix</label>
-									</div>
-
-									<span>
-										<div id="tt_app_package_name_prefix" class="icon material-icons"  tabindex="-1">help</div>
-										<div class="mdl-tooltip" for="tt_app_package_name_prefix">Appears in the generated package path. <br>Eg. if the class packages was <strong>com.google.android.gmail</strong>, you would enter <i>gmail</i> here</div>
-									</span>
-
-									<br />
-
-									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-										<input class="mdl-textfield__input" type="text" id="app_class_prefix" name="app_class_prefix"/>
-										<label class="mdl-textfield__label" for="app_class_prefix">App Class Prefix</label>
-									</div>
-
-									<span>
-										<div id="tt_app_class_prefix" class="icon material-icons" tabindex="-1">help</div>
-										<div class="mdl-tooltip" for="tt_app_class_prefix">Prefixes certain classes in the generated output. Eg the <i>Application</i> subclass. Enter 'GM' to generate <strong>GMApplication</strong></div>
-									</span>
-
-									<br />
-
-									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-										<input class="mdl-textfield__input" type="text" id="application_id" name="application_id"/>
-										<label class="mdl-textfield__label" for="application_id">Application ID</label>
-									</div>
-
-									<span>
-										<div id="tt_application_id" class="icon material-icons" tabindex="-1">help</div>
-										<div class="mdl-tooltip" for="tt_application_id">The application id. Eg <strong>com.google.android.gmail</strong></div>
-									</span>
-
-									<br />
-
-									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-										<input class="mdl-textfield__input" type="text" id="build_tools_version" name="build_tools_version"/>
-										<label class="mdl-textfield__label" for="build_tools_version">Build tools version</label>
-									</div>
-
-									<span>
-										<div id="tt_build_tools_version" class="icon material-icons" tabindex="-1">help</div>
-										<div class="mdl-tooltip" for="tt_build_tools_version">The version of the Android build tools you intend to use. Eg <strong>23.0.0</strong></div>
-									</span>
-
-									<br />
-
-									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-										<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="compile_sdk_version" name="compile_sdk_version"/>
-										<label class="mdl-textfield__label" for="compile_sdk_version">Compile SDK Version</label>
-										<span class="mdl-textfield__error">This needs to be an Android SDK version! Eg 19 for KitKat</span>
-									</div>
-
-									<span>
-										<div id="tt_compile_sdk_version" class="icon material-icons" tabindex="-1">help</div>
-										<div class="mdl-tooltip" for="tt_compile_sdk_version">The Android SDK version to compile against. Eg <strong>23</strong></div>
-									</span>
-
-									<br />
-
-									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-										<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="min_sdk_version" name="min_sdk_version" />
-										<label class="mdl-textfield__label" for="min_sdk_version">Min SDK Version</label>
-										<span class="mdl-textfield__error">This needs to be an Android SDK version! Eg 19 for KitKat</span>
-									</div>
-
-									<span>
-										<div id="tt_min_sdk_version" class="icon material-icons" tabindex="-1">help</div>
-										<div class="mdl-tooltip" for="tt_min_sdk_version">The minimum Android SDK version your app will support. Eg <strong>16</strong></div>
-									</span>
-
-									<br />
-
-									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-										<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="target_sdk_version" name="target_sdk_version" />
-										<label class="mdl-textfield__label" for="target_sdk_version">Target SDK Version</label>
-										<span class="mdl-textfield__error">This needs to be an Android SDK version! Eg 19 for KitKat</span>
-									</div>
-
-									<span>
-										<div id="tt_target_sdk_version" class="icon material-icons" tabindex="-1">help</div>
-										<div class="mdl-tooltip" for="tt_target_sdk_version">The Android SDK version your app will target. Eg <strong>23</strong></div>
-									</span>
-
-									<br />
-							
-									<div>
-										<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lang_java">
-											<input type="radio" id="lang_java" class="mdl-radio__button" name="language" value="java" checked />
-											<span class="mdl-radio__label">Java</span>
-										</label>
-										<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lang_kotlin">
-											<input type="radio" id="lang_kotlin" class="mdl-radio__button" name="language" value="kotlin" />
-											<span class="mdl-radio__label">Kotlin</span>
-										</label>
-									</div>
-									<br />
-
-									<p>
-									<button type="submit" name="submit_btn" class="color_white mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit-btn">Grow!</button>
-									</p>
-								</form>
+				<div class="page-content">
+					<div class="card-wide">
+						<form name="input_form" action="/grow" method="post" onsubmit="return validateForm()">
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" id="company_name" name="company_name"/>
+								<label class="mdl-textfield__label" for="company_name">Company name</label>
 							</div>
-						</div>
-					</section>
 
-					<section class="mdl-layout__tab-panel" id="tab-about">
-						<div class="page-content">
-							<p>About goes here!</p>
-						</div>
-					</section>
+							<span>
+								<div id="tt_company_name" class="icon material-icons" tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_company_name">Appears in the generated package path. <br>Eg. if the class packages was <strong>com.google.android.gmail</strong>, you would enter <i>google</i> here</div>
+							</span>
+
+							<br />
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" id="app_package_name_prefix" name="app_package_name_prefix"/>
+								<label class="mdl-textfield__label" for="app_package_name_prefix">Package Name Prefix</label>
+							</div>
+
+							<span>
+								<div id="tt_app_package_name_prefix" class="icon material-icons"  tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_app_package_name_prefix">Appears in the generated package path. <br>Eg. if the class packages was <strong>com.google.android.gmail</strong>, you would enter <i>gmail</i> here</div>
+							</span>
+
+							<br />
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" id="app_class_prefix" name="app_class_prefix"/>
+								<label class="mdl-textfield__label" for="app_class_prefix">App Class Prefix</label>
+							</div>
+
+							<span>
+								<div id="tt_app_class_prefix" class="icon material-icons" tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_app_class_prefix">Prefixes certain classes in the generated output. Eg the <i>Application</i> subclass. Enter 'GM' to generate <strong>GMApplication</strong></div>
+							</span>
+
+							<br />
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" id="application_id" name="application_id"/>
+								<label class="mdl-textfield__label" for="application_id">Application ID</label>
+							</div>
+
+							<span>
+								<div id="tt_application_id" class="icon material-icons" tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_application_id">The application id. Eg <strong>com.google.android.gmail</strong></div>
+							</span>
+
+							<br />
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" id="build_tools_version" name="build_tools_version"/>
+								<label class="mdl-textfield__label" for="build_tools_version">Build tools version</label>
+							</div>
+
+							<span>
+								<div id="tt_build_tools_version" class="icon material-icons" tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_build_tools_version">The version of the Android build tools you intend to use. Eg <strong>23.0.0</strong></div>
+							</span>
+
+							<br />
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="compile_sdk_version" name="compile_sdk_version"/>
+								<label class="mdl-textfield__label" for="compile_sdk_version">Compile SDK Version</label>
+								<span class="mdl-textfield__error">This needs to be an Android SDK version! Eg 19 for KitKat</span>
+							</div>
+
+							<span>
+								<div id="tt_compile_sdk_version" class="icon material-icons" tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_compile_sdk_version">The Android SDK version to compile against. Eg <strong>23</strong></div>
+							</span>
+
+							<br />
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="min_sdk_version" name="min_sdk_version" />
+								<label class="mdl-textfield__label" for="min_sdk_version">Min SDK Version</label>
+								<span class="mdl-textfield__error">This needs to be an Android SDK version! Eg 19 for KitKat</span>
+							</div>
+
+							<span>
+								<div id="tt_min_sdk_version" class="icon material-icons" tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_min_sdk_version">The minimum Android SDK version your app will support. Eg <strong>16</strong></div>
+							</span>
+
+							<br />
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="target_sdk_version" name="target_sdk_version" />
+								<label class="mdl-textfield__label" for="target_sdk_version">Target SDK Version</label>
+								<span class="mdl-textfield__error">This needs to be an Android SDK version! Eg 19 for KitKat</span>
+							</div>
+
+							<span>
+								<div id="tt_target_sdk_version" class="icon material-icons" tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_target_sdk_version">The Android SDK version your app will target. Eg <strong>23</strong></div>
+							</span>
+
+							<br />
+					
+							<div>
+								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lang_java">
+									<input type="radio" id="lang_java" class="mdl-radio__button" name="language" value="java" checked />
+									<span class="mdl-radio__label">Java</span>
+								</label>
+								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lang_kotlin">
+									<input type="radio" id="lang_kotlin" class="mdl-radio__button" name="language" value="kotlin" />
+									<span class="mdl-radio__label">Kotlin</span>
+								</label>
+							</div>
+							<br />
+
+							<p>
+							<button type="submit" name="submit_btn" class="color_white mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit-btn">Grow!</button>
+							</p>
+						</form>
+					</div>
+				</div>
 			</main>
+
+			<footer class="mdl-mini-footer">
+			  <div class="mdl-mini-footer__left-section">
+			    <div class="mdl-logo">Android Seed</div>
+			    <ul class="mdl-mini-footer__link-list">
+			      <li><a href="/about">About</a></li>
+			      <li><a href="http://github.com/DanielGrech/android-seed">Github</a></li>
+			    </ul>
+			  </div>
+			</footer>
 		</div>
 	</body>
 </html>
