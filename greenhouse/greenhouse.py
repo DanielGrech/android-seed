@@ -1,24 +1,26 @@
+import os
 import sys
-sys.path.insert(0, '../garden')
+import inspect
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))) + '/garden') 
 
 from flask import Flask, request, Response, send_file
 import grow
 import json
 import random
-import os
 import shutil
 
-app = Flask(__name__)
+application = Flask(__name__)
 
-@app.route("/")
+@application.route("/")
 def index():
-	return app.send_static_file('index.html')
+	return application.send_static_file('index.html')
 
-@app.route("/about")
+@application.route("/about")
 def about():
-	return app.send_static_file('about.html')
+	return application.send_static_file('about.html')
 
-@app.route('/grow', methods=['POST'])
+@application.route('/grow', methods=['POST'])
 def generate():
 	output_dir = "/tmp/" + str(random.randint(1, sys.maxint))
 	output_file_name = "/tmp/" + str(random.randint(1, sys.maxint))
@@ -51,4 +53,4 @@ def generate():
 			os.remove(output_file_name)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    application.run(host='0.0.0.0')
