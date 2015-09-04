@@ -74,9 +74,9 @@ public class TestUtils {
      * This can be used as:
      * <p/>
      * <pre>
-     *     AppServicesComponent comp = TestUtils.createAppServicesComponent(TreatDetailPresenter.class, new Action1<TreatDetailPresenter>() {
+     *     AppServicesComponent comp = TestUtils.createAppServicesComponent(MyAwesomePresenter.class, new Action1<MyAwesomePresenter>() {
      *          @Override
-     *          public void call(TreatDetailPresenter presenter) {
+     *          public void call(MyAwesomePresenter presenter) {
      *              presenter.myInjectableField = mock(MyInjectableField.class);
      *          }
      *     });
