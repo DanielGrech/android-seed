@@ -33,9 +33,9 @@ def generate():
 				"application_id" : request.form["application_id"],
 				"compile_sdk_version" : int(request.form["compile_sdk_version"]),
 				"build_tools_version" : request.form["build_tools_version"],
-			    "min_sdk_version" : int(request.form["min_sdk_version"]),
-			    "target_sdk_version" : int(request.form["target_sdk_version"]),
-			    "output_dir" : output_dir
+				"min_sdk_version" : int(request.form["min_sdk_version"]),
+				"target_sdk_version" : int(request.form["target_sdk_version"]),
+				"output_dir" : output_dir
 		}
 
 		grow.grow(data)
