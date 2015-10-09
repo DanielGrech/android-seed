@@ -35,6 +35,15 @@
 		</style>
 
 		<script>
+			function onPackagePathChanged() {
+				var companyNameElem = document.getElementById("company_name")
+				var packageNamePrefElem = document.getElementById("app_package_name_prefix")
+				var appIdElem = document.getElementById("application_id")
+
+				appIdElem.value = "com." + companyNameElem.value + ".android." + packageNamePrefElem.value
+				appIdElem.parentElement.MaterialTextfield.checkDirty()
+			}
+
 			function validateForm() {		
 				var formElems = [
 					"app_name",
@@ -103,7 +112,7 @@
 							<br />
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-								<input class="mdl-textfield__input" type="text" id="company_name" name="company_name"/>
+								<input class="mdl-textfield__input" type="text" id="company_name" name="company_name" onchange="onPackagePathChanged();"/>
 								<label class="mdl-textfield__label" for="company_name">Company name</label>
 							</div>
 
@@ -115,7 +124,7 @@
 							<br />
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-								<input class="mdl-textfield__input" type="text" id="app_package_name_prefix" name="app_package_name_prefix"/>
+								<input class="mdl-textfield__input" type="text" id="app_package_name_prefix" name="app_package_name_prefix"  onchange="onPackagePathChanged();"/>
 								<label class="mdl-textfield__label" for="app_package_name_prefix">Package Name Prefix</label>
 							</div>
 
@@ -151,7 +160,7 @@
 							<br />
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-								<input class="mdl-textfield__input" type="text" id="build_tools_version" name="build_tools_version"/>
+								<input class="mdl-textfield__input" type="text" id="build_tools_version" name="build_tools_version" value="23.0.1"/>
 								<label class="mdl-textfield__label" for="build_tools_version">Build tools version</label>
 							</div>
 
@@ -163,7 +172,7 @@
 							<br />
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-								<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="compile_sdk_version" name="compile_sdk_version"/>
+								<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="compile_sdk_version" name="compile_sdk_version" value="23"/>
 								<label class="mdl-textfield__label" for="compile_sdk_version">Compile SDK Version</label>
 								<span class="mdl-textfield__error">This needs to be an Android SDK version! Eg 19 for KitKat</span>
 							</div>
@@ -176,7 +185,7 @@
 							<br />
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-								<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="min_sdk_version" name="min_sdk_version" />
+								<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="min_sdk_version" name="min_sdk_version"  value="19"/>
 								<label class="mdl-textfield__label" for="min_sdk_version">Min SDK Version</label>
 								<span class="mdl-textfield__error">This needs to be an Android SDK version! Eg 19 for KitKat</span>
 							</div>
@@ -189,7 +198,7 @@
 							<br />
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-								<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="target_sdk_version" name="target_sdk_version" />
+								<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="target_sdk_version" name="target_sdk_version"  value="23" />
 								<label class="mdl-textfield__label" for="target_sdk_version">Target SDK Version</label>
 								<span class="mdl-textfield__error">This needs to be an Android SDK version! Eg 19 for KitKat</span>
 							</div>
