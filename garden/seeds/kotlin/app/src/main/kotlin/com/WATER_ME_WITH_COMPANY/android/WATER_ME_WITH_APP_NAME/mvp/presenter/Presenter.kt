@@ -23,8 +23,6 @@ import javax.inject.Inject
  */
 public abstract class Presenter<V : MvpView>(private val view: V, private val component : AppServicesComponent) {
 
-    private var subscriptions: CompositeSubscription? = null
-
     protected fun getContext(): Context {
         return view.getContext()
     }
@@ -34,7 +32,7 @@ public abstract class Presenter<V : MvpView>(private val view: V, private val co
     }
 
     public open fun onCreate(savedInstanceState: Bundle?) {
-        subscriptions = CompositeSubscription()
+
     }
 
     public open fun onSaveInstanceState(savedInstanceState: Bundle?) {
@@ -50,26 +48,15 @@ public abstract class Presenter<V : MvpView>(private val view: V, private val co
     }
 
     public open fun onPause() {
-        subscriptions!!.unsubscribe()
+
     }
 
     public open fun onStop() {
     }
 
     protected fun <T> bind(observable: Observable<T>, observer: Observer<in T>): Subscription {
-        val boundObservable: Observable<T>
-
-
-        val cxt = getContext()
-        if (cxt is BaseActivity) {
-            boundObservable = observable.bind(cxt)
-        } else if (cxt is BaseFragment) {
-            boundObservable = observable.bind(cxt)
-        } else {
-            boundObservable = observable
-        }
-
-        return boundObservable.observeOnMainThread()
+        return observable.bind(getView())
+                .observeOnMainThread()
                 .subscribeOnIoThread()
                 .subscribe(observer)
     }

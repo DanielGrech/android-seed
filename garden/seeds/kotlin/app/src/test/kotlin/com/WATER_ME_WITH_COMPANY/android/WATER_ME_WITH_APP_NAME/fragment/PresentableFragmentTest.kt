@@ -21,10 +21,10 @@ import org.mockito.Mockito.spy
 import org.mockito.Mockito.verify
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil
 
-RunWith({{app_class_prefix}}TestRunner::class)
+@RunWith({{app_class_prefix}}TestRunner::class)
 public class PresentableFragmentTest {
 
-    Test
+    @Test
     public fun testDelegatesToPresenter() {
         val frag = DummyFragment()
 

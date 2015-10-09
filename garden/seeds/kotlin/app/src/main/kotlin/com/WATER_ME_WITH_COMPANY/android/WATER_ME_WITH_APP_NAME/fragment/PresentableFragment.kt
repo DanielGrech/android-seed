@@ -12,21 +12,13 @@ import com.{{company_name}}.android.{{app_package_name_prefix}}.mvp.view.MvpView
  */
 public abstract class PresentableFragment<V : MvpView, T : Presenter<V>> : BaseFragment() {
 
-    private var _presenter : T? = null
-
-    val presenter: T
-        get() {
-            return _presenter!!
-        }
+    lateinit var presenter : T
 
     protected abstract fun createPresenter(servicesComponent: AppServicesComponent, savedInstanceState: Bundle?): T
 
     override public fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this._presenter = createPresenter(getApp().getAppServicesComponent(), savedInstanceState)
-        if (this._presenter == null) {
-            throw IllegalStateException("presenter == null")
-        }
+        this.presenter = createPresenter(getApp().getAppServicesComponent(), savedInstanceState)
         presenter.onCreate(savedInstanceState)
     }
 
@@ -57,7 +49,6 @@ public abstract class PresentableFragment<V : MvpView, T : Presenter<V>> : BaseF
 
     override public fun onDestroy() {
         presenter.onDestroy()
-        _presenter = null
         super.onDestroy()
     }
 }

@@ -19,10 +19,10 @@ import org.mockito.Mockito.verify
 import org.robolectric.Robolectric
 import org.robolectric.Robolectric.buildActivity
 
-RunWith({{app_class_prefix}}TestRunner::class)
+@RunWith({{app_class_prefix}}TestRunner::class)
 public class PresentableActivityTest {
 
-    Test
+    @Test
     public fun testDelegatesToPresenter() {
         val controller = buildActivity(javaClass<PresentableActivityWithMockPresenter>())
 

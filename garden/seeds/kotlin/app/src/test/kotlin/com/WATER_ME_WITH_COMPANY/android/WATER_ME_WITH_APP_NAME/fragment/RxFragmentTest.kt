@@ -14,10 +14,10 @@ import org.robolectric.Robolectric
 import org.robolectric.RuntimeEnvironment
 import rx.observers.TestSubscriber
 
-RunWith({{app_class_prefix}}TestRunner::class)
+@RunWith({{app_class_prefix}}TestRunner::class)
 public class RxFragmentTest {
 
-    Test
+    @Test
     public fun testLifecycleObservable() {
         val fragment = LameRxFragment()
 

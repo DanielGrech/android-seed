@@ -26,6 +26,7 @@ def generate():
 	output_file_name = "/tmp/" + str(random.randint(1, sys.maxint))
 	try:
 		data = {
+				"app_name" : request.form["app_name"],
 				"language" : request.form["language"],
 				"company_name" : request.form["company_name"],
 				"app_package_name_prefix" : request.form["app_package_name_prefix"],
@@ -35,6 +36,7 @@ def generate():
 				"build_tools_version" : request.form["build_tools_version"],
 				"min_sdk_version" : int(request.form["min_sdk_version"]),
 				"target_sdk_version" : int(request.form["target_sdk_version"]),
+				"crashlytics_api_key" : request.form["crashlytics_api_key"],
 				"output_dir" : output_dir
 		}
 

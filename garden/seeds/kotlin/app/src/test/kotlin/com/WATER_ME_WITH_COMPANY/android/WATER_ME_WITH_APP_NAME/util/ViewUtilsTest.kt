@@ -13,10 +13,10 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
-RunWith({{app_class_prefix}}TestRunner::class)
+@RunWith({{app_class_prefix}}TestRunner::class)
 public class ViewUtilsTest {
 
-    Test
+    @Test
     public fun testHide() {
         val view = View(RuntimeEnvironment.application)
         view.setVisibility(View.VISIBLE)
@@ -26,7 +26,7 @@ public class ViewUtilsTest {
         assertThat(view.getVisibility()).isEqualTo(View.GONE)
     }
 
-    Test
+    @Test
     public fun testHideInvisibleHandlesOneViewInput() {
         val view = View(RuntimeEnvironment.application)
         view.setVisibility(View.VISIBLE)
@@ -37,7 +37,7 @@ public class ViewUtilsTest {
     }
 
 
-    Test
+    @Test
     public fun testShowHandlesOneViewInput() {
         val view = View(RuntimeEnvironment.application)
         view.setVisibility(View.GONE)
@@ -47,7 +47,7 @@ public class ViewUtilsTest {
         assertThat(view.getVisibility()).isEqualTo(View.VISIBLE)
     }
 
-    Test
+    @Test
     public fun testShowWhenTrue() {
         val view = View(RuntimeEnvironment.application)
         view.setVisibility(View.GONE)
@@ -57,7 +57,7 @@ public class ViewUtilsTest {
         assertThat(view.getVisibility()).isEqualTo(View.VISIBLE)
     }
 
-    Test
+    @Test
     public fun testShowWhenFalse() {
         val view = View(RuntimeEnvironment.application)
         view.setVisibility(View.VISIBLE)
@@ -67,7 +67,7 @@ public class ViewUtilsTest {
         assertThat(view.getVisibility()).isEqualTo(View.GONE)
     }
 
-    Test
+    @Test
     public fun testSetTextOrHideWithEmptyText() {
         val view = mock(javaClass<TextView>())
 
@@ -76,7 +76,7 @@ public class ViewUtilsTest {
         verify(view).setVisibility(View.GONE)
     }
 
-    Test
+    @Test
     public fun testSetTextOrHide() {
         val EXPECTED_TEXT = "I'll be back"
         val view = mock(javaClass<TextView>())

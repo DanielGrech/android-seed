@@ -23,7 +23,7 @@ abstract class RxFragment : Fragment() {
         lifecycleSubject.onNext(FragmentEvent.CREATE)
     }
 
-    @suppress("DEPRECATED_SYMBOL_WITH_MESSAGE")
+    @Suppress("DEPRECATED_SYMBOL_WITH_MESSAGE")
     override fun onAttach(activity: android.app.Activity?) {
         super.onAttach(activity)
         lifecycleSubject.onNext(FragmentEvent.ATTACH)

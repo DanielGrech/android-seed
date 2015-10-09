@@ -5,23 +5,23 @@ buildscript {
         maven { url 'http://download.crashlytics.com/maven' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.3.0'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.1230'
-        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.16.0'
+        classpath 'com.android.tools.build:gradle:1.4.0-beta6'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.14.449'
         classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.0.3'
         classpath 'pl.itako:icon-version:1.1.2'
     }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.6'
+    gradleVersion = '2.7'
     description = 'Create gradle wrapper files'
 }
 
 allprojects {
     repositories {
         jcenter()
-        maven { url 'http://download.crashlytics.com/maven' }
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
 
     tasks.withType(JavaForkOptions) {
@@ -33,7 +33,7 @@ allprojects {
 subprojects {
     ext {
         config = [
-                appName : "{{app_class_prefix}}",
+                appName : "{{app_name}}",
                 applicationId : "{{application_id}}",
 
                 compileSdkVersion : {{compile_sdk_version}},
@@ -62,22 +62,23 @@ subprojects {
         ]
 
         versions = [
-                kotlin : "0.12.1230",
-                anko : "0.6.3-19",
+                kotlin : "0.14.449",
+                anko : "0.7",
                 androidSupport : "{{compile_sdk_version}}.0.0",
                 rxAndroid : "1.0.1",
-                rxBinding : "0.2.0",
+                rxBinding : "0.3.0-SNAPSHOT",
                 rxLifecycle : "0.3.0",
                 calligraphy : "2.1.0",
-                retrofit : "1.9.0",
+                retrofit : "2.0.0-beta2",
                 easyDataStore : "1.0.2",
-                gson : "2.3.1",
-                okHttp : "2.4.0",
+                gson : "2.4",
+                okHttp : "2.5.0",
                 rxJava : "1.0.14",
-                timber : "3.1.0",
+                rxKotlin : "0.22.13",
+                timber : "4.0.1",
                 picasso : "2.5.2",
                 jsr250 : "1.0",
-                crashlyticsClient : "1.1.13",
+                fabricClient : "2.5.2@aar",
                 yearClass : "1.0.1",
                 stetho : "1.2.0",
                 dagger : "2.0.1",

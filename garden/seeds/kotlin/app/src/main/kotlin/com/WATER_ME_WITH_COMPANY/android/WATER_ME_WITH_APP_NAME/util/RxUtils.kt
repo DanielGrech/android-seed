@@ -2,18 +2,29 @@ package com.{{company_name}}.android.{{app_package_name_prefix}}.util
 
 import com.{{company_name}}.android.{{app_package_name_prefix}}.activity.BaseActivity
 import com.{{company_name}}.android.{{app_package_name_prefix}}.fragment.BaseFragment
+import com.{{company_name}}.android.{{app_package_name_prefix}}.mvp.view.MvpView
 import com.trello.rxlifecycle.RxLifecycle
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.functions.Func1
 import rx.schedulers.Schedulers
 
-fun <T> Observable<T>.bind(activity : BaseActivity) : Observable<T> {
-    return this.compose(RxLifecycle.bindActivity(activity.lifecycle()));
+public fun<T> Observable<T>.bind(view: MvpView) : Observable<T> {
+    if (view is BaseActivity) {
+        return bind(view)
+    } else if (view is BaseFragment) {
+        return bind(view)
+    } else {
+        return this
+    }
 }
 
-fun <T> Observable<T>.bind(fragment : BaseFragment) : Observable<T> {
-    return this.compose(RxLifecycle.bindFragment(fragment.lifecycle()));
+private fun <T> Observable<T>.bind(activity : BaseActivity) : Observable<T> {
+    return this.compose<T>(RxLifecycle.bindActivity(activity.lifecycle()));
+}
+
+private fun <T> Observable<T>.bind(fragment : BaseFragment) : Observable<T> {
+    return this.compose<T>(RxLifecycle.bindFragment(fragment.lifecycle()));
 }
 
 fun <T> Observable<T>.observeOnMainThread() : Observable<T> {

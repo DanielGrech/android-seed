@@ -12,12 +12,7 @@ import com.{{company_name}}.android.{{app_package_name_prefix}}.mvp.view.MvpView
  */
 abstract class PresentableActivity<V : MvpView, T : Presenter<V>> : BaseActivity() {
 
-    private var _presenter : T? = null
-
-    val presenter: T
-        get() {
-            return _presenter!!
-        }
+    lateinit var presenter : T
 
     /**
      * Return a presenter to use for this activity. This will only be called once per activity,
@@ -31,11 +26,7 @@ abstract class PresentableActivity<V : MvpView, T : Presenter<V>> : BaseActivity
 
     override protected fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this._presenter = createPresenter(getApp().getAppServicesComponent())
-        if (this._presenter == null) {
-            throw IllegalStateException("presenter == null")
-        }
-
+        this.presenter = createPresenter(getApp().getAppServicesComponent())
         this.presenter.onCreate(savedInstanceState)
     }
 
@@ -66,7 +57,6 @@ abstract class PresentableActivity<V : MvpView, T : Presenter<V>> : BaseActivity
 
     override protected fun onDestroy() {
         presenter.onDestroy()
-        _presenter = null
         super.onDestroy()
     }
 }

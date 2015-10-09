@@ -26,8 +26,6 @@ public abstract class Presenter<V extends MvpView> {
 
     private final V view;
 
-    private CompositeSubscription subscriptions;
-
     public Presenter(@NonNull V view, AppServicesComponent component) {
         this.view = view;
         if (this.view == null) {
@@ -44,7 +42,7 @@ public abstract class Presenter<V extends MvpView> {
     }
 
     public void onCreate(Bundle savedInstanceState) {
-        subscriptions = new CompositeSubscription();
+
     }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -64,7 +62,7 @@ public abstract class Presenter<V extends MvpView> {
     }
 
     public void onPause() {
-        subscriptions.unsubscribe();
+
     }
 
     public void onStop() {
@@ -82,10 +80,7 @@ public abstract class Presenter<V extends MvpView> {
             boundObservable = observable;
         }
 
-        final Subscription subscription
-                = boundObservable.subscribeOn(Schedulers.io()).subscribe(observer);
-
-        return subscription;
+        return boundObservable.subscribeOn(Schedulers.io()).subscribe(observer);
     }
 
     protected class SimpleSubscriber<T> extends Subscriber<T> {

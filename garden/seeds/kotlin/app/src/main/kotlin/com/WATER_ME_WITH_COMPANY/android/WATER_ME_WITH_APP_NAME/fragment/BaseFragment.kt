@@ -39,7 +39,7 @@ public abstract class BaseFragment : RxFragment() {
         }
     }
 
-    SuppressWarnings("UNUSED_PARAMETER")
+    @SuppressWarnings("UNUSED_PARAMETER")
     protected fun onCreateView(rootView: View, savedInstanceState: Bundle?) {
         // Hook for subclasses to override
     }

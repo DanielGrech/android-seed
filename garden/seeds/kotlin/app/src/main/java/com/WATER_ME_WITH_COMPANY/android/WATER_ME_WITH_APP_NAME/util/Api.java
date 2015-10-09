@@ -13,6 +13,7 @@ public class Api {
     public static final int KITKAT = Build.VERSION_CODES.KITKAT;
     public static final int LOLLIPOP = Build.VERSION_CODES.LOLLIPOP;
     public static final int LOLLIPOP_MR1 = Build.VERSION_CODES.LOLLIPOP_MR1;
+    public static final int MARSHMALLOW = Build.VERSION_CODES.M;
 
     Api() {
         // No instances..

@@ -57,9 +57,10 @@ def validate_config(config):
 		config['language'] = 'java'
 
 	required_fields = [
-		'output_dir', 'company_name', 'app_package_name_prefix',
+		'output_dir', 'app_name', 'company_name', 'app_package_name_prefix',
 		'app_class_prefix', 'application_id', 'compile_sdk_version',
-		'build_tools_version', 'min_sdk_version', 'target_sdk_version'
+		'build_tools_version', 'min_sdk_version', 'target_sdk_version',
+		'crashlytics_api_key'
 		]
 
 	for req_field in required_fields:

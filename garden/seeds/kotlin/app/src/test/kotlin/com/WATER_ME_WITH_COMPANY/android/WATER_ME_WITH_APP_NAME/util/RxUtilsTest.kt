@@ -17,10 +17,10 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-RunWith({{app_class_prefix}}TestRunner::class)
+@RunWith({{app_class_prefix}}TestRunner::class)
 public class RxUtilsTest {
 
-    Test
+    @Test
     public fun testNullFilterWithNullInput() {
         val testSubscriber = TestSubscriber<Any>()
 
@@ -30,7 +30,7 @@ public class RxUtilsTest {
         testSubscriber.assertTerminalEvent()
     }
 
-    Test
+    @Test
     public fun testNullFilterWithNonNullInput() {
         val EXPECTED_OUTPUT = Object()
 
@@ -41,7 +41,7 @@ public class RxUtilsTest {
         testSubscriber.assertTerminalEvent()
     }
 
-    Test
+    @Test
     public fun testFlatMapList() {
         val listInput = listOf(123, 456, 789)
 
@@ -51,7 +51,7 @@ public class RxUtilsTest {
         testSubscriber.assertValues(123, 456, 789)
     }
 
-    Test
+    @Test
     public fun testBindActivity() {
         val observable = Observable.just("").delay(2, TimeUnit.SECONDS)
         val subscriber = TestSubscriber<String>()
@@ -68,7 +68,7 @@ public class RxUtilsTest {
         assertThat(subscriber.isUnsubscribed()).isTrue()
     }
 
-    Test
+    @Test
     throws(InterruptedException::class)
     public fun testBindFragment() {
         val observable = Observable.just("").delay(2, TimeUnit.SECONDS)

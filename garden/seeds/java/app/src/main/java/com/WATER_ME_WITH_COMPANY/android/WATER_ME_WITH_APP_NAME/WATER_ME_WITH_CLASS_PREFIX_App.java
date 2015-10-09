@@ -4,8 +4,9 @@ import android.app.Application;
 import android.os.StrictMode;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import io.fabric.sdk.android.Fabric;
 import com.facebook.stetho.Stetho;
-import com.facebook.stetho.timber.StethoTree;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.squareup.picasso.Cache;
@@ -61,7 +62,7 @@ public class {{app_class_prefix}}App extends Application {
 
     void enableAppOnlyFunctionality() {
         if (BuildConfig.CRASHLYTICS_ENABLED) {
-            Crashlytics.start(this);
+            Fabric.with(this, new Crashlytics(), new Answers());
             Timber.plant(new CrashlyticsLogger());
         }
 
@@ -75,7 +76,6 @@ public class {{app_class_prefix}}App extends Application {
      */
     void enableDebugTools() {
         Timber.plant(new Timber.DebugTree());
-        Timber.plant(new StethoTree());
 
         Stetho.initialize(Stetho.newInitializerBuilder(this)
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))

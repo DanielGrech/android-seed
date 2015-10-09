@@ -1,15 +1,17 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url 'http://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-android-extensions:0.12.1230'
+        classpath 'org.jetbrains.kotlin:kotlin-android-extensions:0.14.449'
+        classpath 'io.fabric.tools:gradle:1.20.0'
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-//apply plugin: 'crashlytics'
+apply plugin: 'io.fabric'
 apply plugin: 'spoon'
 apply plugin: 'icon-version'
 
@@ -56,9 +58,17 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-${getCiBuildNumber()}"
-            testCoverageEnabled true
 
             resValue "string", "app_name", "${config.appName} Debug"
+        }
+
+        jacocoEnabled.initWith(buildTypes.debug)
+        jacocoEnabled {
+            applicationIdSuffix ".debug.jacoco"
+            versionNameSuffix "-jacoco-${getCiBuildNumber()}"
+            testCoverageEnabled true
+
+            resValue "string", "app_name", "${config.appName} Debug (Jacoco)"
         }
 
         release {
@@ -113,27 +123,28 @@ android {
         }
     }
 
-    applicationVariants.matching { it.buildType.name != 'release' }.all { createJacocoTask(it) }
+    applicationVariants.matching { it.buildType.name == 'jacocoEnabled' }.all { createJacocoTask(it) }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(":model")
     compile project(":network")
-    compile "org.jetbrains.anko:anko:${versions.anko}"
+    compile "org.jetbrains.anko:anko-sdk${config.targetSdkVersion}:${versions.anko}"
     compile "com.android.support:appcompat-v7:${versions.androidSupport}"
     compile "com.android.support:support-v4:${versions.androidSupport}"
-    compile "com.android.support:appcompat-v7:${versions.androidSupport}"
     compile "com.android.support:recyclerview-v7:${versions.androidSupport}"
-    compile "com.crashlytics.android:crashlytics:${versions.crashlyticsClient}"
     compile "com.google.dagger:dagger:${versions.dagger}"
     compile "uk.co.chrisjenx:calligraphy:${versions.calligraphy}"
     compile "com.jakewharton.timber:timber:${versions.timber}"
     compile "com.squareup.picasso:picasso:${versions.picasso}"
     compile "javax.annotation:jsr250-api:${versions.jsr250}"
-    compile "com.facebook.stetho:stetho-timber:${versions.stetho}"
+    compile "com.facebook.stetho:stetho:${versions.stetho}"
     compile "com.facebook.device.yearclass:yearclass:${versions.yearClass}"
     compile "com.lacronicus:easydatastorelib:${versions.easyDataStore}"
+    compile("com.crashlytics.sdk.android:crashlytics:${versions.fabricClient}") {
+        transitive = true;
+    }
 
     compile "io.reactivex:rxandroid:${versions.rxAndroid}"
     compile "com.jakewharton.rxbinding:rxbinding-kotlin:${versions.rxBinding}"

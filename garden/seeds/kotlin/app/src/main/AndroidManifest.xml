@@ -9,9 +9,9 @@
         android:name=".{{app_class_prefix}}AppImpl"
         android:theme="@style/AppTheme">
 
-        <!--<meta-data-->
-            <!--android:name="com.crashlytics.ApiKey"-->
-            <!--android:value="KEY_GOES_HERE" />-->
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="{{crashlytics_api_key}}" />
 
         <activity
             android:name=".activity.MainActivity">

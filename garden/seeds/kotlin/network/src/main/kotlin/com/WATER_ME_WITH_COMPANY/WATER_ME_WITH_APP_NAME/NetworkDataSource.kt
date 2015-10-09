@@ -2,8 +2,9 @@ package com.{{company_name}}.{{app_package_name_prefix}}
 
 import com.squareup.okhttp.Interceptor
 import com.squareup.okhttp.OkHttpClient
-import retrofit.RestAdapter
-import retrofit.client.OkClient
+import retrofit.Retrofit
+import retrofit.RxJavaCallAdapterFactory
+import retrofit.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 public class NetworkDataSource : DataSource {
@@ -26,11 +27,13 @@ public class NetworkDataSource : DataSource {
         val client = createDefaultHttpClient()
         client.networkInterceptors().addAll(builder.networkInterceptors)
 
-        apiService = RestAdapter.Builder()
-                .setClient(OkClient(client))
-                .setLogLevel(if (builder.logging) RestAdapter.LogLevel.FULL else RestAdapter.LogLevel.NONE )
+        apiService = Retrofit.Builder()
+                .baseUrl(builder.endpoint)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build()
-                .create(javaClass<ApiService>())
+                .create(ApiService::class.java)
     }
 
     public class Builder {

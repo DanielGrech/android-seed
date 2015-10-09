@@ -37,6 +37,7 @@
 		<script>
 			function validateForm() {		
 				var formElems = [
+					"app_name",
 					"company_name", 
 					"app_package_name_prefix",
 					"app_class_prefix",
@@ -45,7 +46,8 @@
 					"compile_sdk_version",
 					"min_sdk_version",
 					"target_sdk_version",
-					"language"
+					"language",
+					"crashlytics_api_key"
 				];
 
 				var form = document.forms["input_form"];
@@ -87,6 +89,19 @@
 				<div class="page-content">
 					<div class="card-wide">
 						<form name="input_form" action="/grow" method="post" onsubmit="return validateForm()">
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" id="app_name" name="app_name"/>
+								<label class="mdl-textfield__label" for="app_name">App Name</label>
+							</div>
+
+							<span>
+								<div id="tt_app_name" class="icon material-icons" tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_app_name">App name used for the launcher icon</div>
+							</span>
+
+							<br />
+
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 								<input class="mdl-textfield__input" type="text" id="company_name" name="company_name"/>
 								<label class="mdl-textfield__label" for="company_name">Company name</label>
@@ -185,7 +200,19 @@
 							</span>
 
 							<br />
-					
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="text" id="crashlytics_api_key" name="crashlytics_api_key"/>
+								<label class="mdl-textfield__label" for="crashlytics_api_key">Crashlytics API Key</label>
+							</div>
+
+							<span>
+								<div id="tt_crashlytics_api_key" class="icon material-icons" tabindex="-1">help</div>
+								<div class="mdl-tooltip" for="tt_crashlytics_api_key">Your API key for crashlytics. See <a href="http://blog.danlew.net/2015/02/20/setting-up-a-new-app-in-crashlytics-without-the-plugin/">here</a> for more info</div>
+							</span>
+
+							<br />
+
 							<div>
 								<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lang_java">
 									<input type="radio" id="lang_java" class="mdl-radio__button" name="language" value="java" checked />

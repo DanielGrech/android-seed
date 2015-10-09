@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.ComponentCallbacks2
 import android.os.StrictMode
 import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.answers.Answers
 import com.{{company_name}}.android.{{app_package_name_prefix}}.BuildConfig
 import com.{{company_name}}.android.{{app_package_name_prefix}}.module.AppServicesComponent
 import com.{{company_name}}.android.{{app_package_name_prefix}}.module.{{app_class_prefix}}Module
@@ -11,21 +12,21 @@ import com.{{company_name}}.android.{{app_package_name_prefix}}.util.Api
 import com.{{company_name}}.android.{{app_package_name_prefix}}.util.CrashlyticsLogger
 import com.{{company_name}}.android.{{app_package_name_prefix}}.util.LoggingLifecycleCallbacks
 import com.facebook.stetho.Stetho
-import com.facebook.stetho.timber.StethoTree
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import com.squareup.picasso.Cache
 import com.squareup.picasso.LruCache
 import com.squareup.picasso.Picasso
+import io.fabric.sdk.android.Fabric
 import timber.log.Timber
 
 abstract class {{app_class_prefix}}App : Application() {
 
     var refWatcher: RefWatcher = RefWatcher.DISABLED
 
-    private var picassoImageCache: Cache? = null
+    private lateinit var picassoImageCache: Cache
 
-    private var appServicesComponent: AppServicesComponent? = null
+    private lateinit var appServicesComponent: AppServicesComponent
 
     protected abstract fun createAppServicesComponent() : AppServicesComponent
 
@@ -47,7 +48,7 @@ abstract class {{app_class_prefix}}App : Application() {
         if (level >= ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
             Timber.d("Android is suggesting to trim memory .. clearing picasso cache. Level = %s", level)
             // Clear our picasso cache
-            picassoImageCache!!.clear()
+            picassoImageCache.clear()
         }
     }
 
@@ -56,7 +57,7 @@ abstract class {{app_class_prefix}}App : Application() {
      * * other application components may want to use for injection purposes
      */
     public fun getAppServicesComponent(): AppServicesComponent {
-        return appServicesComponent!!
+        return appServicesComponent
     }
 
     protected fun getModule() : {{app_class_prefix}}Module {
@@ -71,7 +72,7 @@ abstract class {{app_class_prefix}}App : Application() {
      */
     protected open fun enableAppOnlyFunctionality() {
         if (BuildConfig.CRASHLYTICS_ENABLED) {
-            Crashlytics.start(this)
+            Fabric.with(this, Crashlytics(), Answers());
             Timber.plant(CrashlyticsLogger())
         }
         registerActivityLifecycleCallbacks(LoggingLifecycleCallbacks())
@@ -91,7 +92,6 @@ abstract class {{app_class_prefix}}App : Application() {
 
     protected open fun enableDebugTools() {
         Timber.plant(Timber.DebugTree())
-        Timber.plant(StethoTree())
 
         Stetho.initialize(Stetho.newInitializerBuilder(this)
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))

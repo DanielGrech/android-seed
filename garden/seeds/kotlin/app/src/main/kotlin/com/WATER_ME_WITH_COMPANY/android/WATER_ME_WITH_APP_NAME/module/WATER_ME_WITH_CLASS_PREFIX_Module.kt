@@ -12,41 +12,40 @@ import com.{{company_name}}.{{app_package_name_prefix}}.networkDataSource
 import com.lacronicus.easydatastorelib.DatastoreBuilder
 import dagger.Module
 import dagger.Provides
-import retrofit.RestAdapter
 import javax.inject.Singleton
 
 /**
  * Dagger module to provide dependency injection
  */
-SuppressWarnings("UNUSED_PARAMETER")
-Module
+@SuppressWarnings("UNUSED_PARAMETER")
+@Module
 public class {{app_class_prefix}}Module(private val application: {{app_class_prefix}}App) {
 
-    Provides
-    Singleton
+    @Provides
+    @Singleton
     fun providesApp(): {{app_class_prefix}}App {
         return application
     }
 
-    Provides
+    @Provides
     fun providesContext(): Context {
         return application
     }
 
-    Provides
-    Singleton
+    @Provides
+    @Singleton
     fun providesSharedPreferences(context: Context): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(context)
     }
 
-    Provides
-    Singleton
+    @Provides
+    @Singleton
     fun providesAppSettings(sharedPreferences: SharedPreferences): AppSettings {
-        return DatastoreBuilder(sharedPreferences).create(javaClass<AppSettings>())
+        return DatastoreBuilder(sharedPreferences).create(AppSettings::class.java)
     }
 
-    Provides
-    Singleton
+    @Provides
+    @Singleton
     fun providesDataSource() : DataSource {
         return networkDataSource {
             logging = BuildConfig.DEBUG
