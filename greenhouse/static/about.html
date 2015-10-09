@@ -1,55 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-	 	<meta charset="utf-8">
-	 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	 	<meta name="description" content="Grow a nice Android app from this beautiful seed">	 	
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="Grow a nice Android app from this beautiful seed">	 	
 
-	 	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.css" /> 
-		<script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.css" /> 
+	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-		<title>Android Seed &middot; About</title>
+	<title>Android Seed &middot; About</title>
 
-		<style>
-			.page-content {
-				padding: 40px;
-			}
+	<style>
+		.page-content {
+			padding: 40px;
+		}
 
-			.card-wide {
-				width: 512px;
-				margin-left: auto;
-				margin-right: auto;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-			<header class="mdl-layout__header is-casting-shadow">
-				<div class="mdl-layout__header-row">
-					<span class="mdl-layout-title color_white">Android Seed &middot; About</span>
+		.card-wide {
+			width: 800px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header is-casting-shadow">
+			<div class="mdl-layout__header-row">
+				<span class="mdl-layout-title color_white">About Android Seed</span>
+			</div>
+		</header>
+
+		<main class="mdl-layout__content">
+			<div class="page-content">
+				<div class="card-wide">
+
+				<p>The seed project can be generated in both Java and Kotlin. Each seed takes advantage of language-specific features where possible, though the overall architecture remains the same.</p>
+
+					<p>The seed projects use the gradle build system and are split across 3 gradle modules:</p>
+
+					<ul>
+						<li><p><code>model</code>:</p>
+
+							<small>
+								<p>Java-only module which holds simple model objects. Classes in this module should hold no Android-specific logic (and cant - as the whole module isn't compiled against the Android SDK). As much business logic as possible should be pushed to this layer, as these simple classes are often simpler and faster to test. The seed projects encourage the use of the <a href="http://immutables.github.io/">Immutables</a> library. Immutable models lead to less shared state and this library can use code generation to reduce boilerplate code directly in the repository.</p>
+							</small>
+
+							<p>There is no reason that this module cannot acheive 100% unit-test coverage of any custom logic.</p></li>
+							<li><p><code>network</code>:</p>
+
+								<small>
+									<p>Java-only module which holds all logic to mask access to any data-resources. In simple apps, the function of this module is to retrieve data from a server, convert it into a model found in the <code>models</code> module (a dependency of this module) and pass it back to it's caller. In the seed projects, this is a java-only module to encourage a clean separation between application logic and that which manages network communication/parsing/transforming. This module makes use of the <a href="http://square.github.io/retrofit/">Retrofit</a> library for networking and <a href="https://github.com/google/gson">GSON</a> for json transformations. It often contains API-specific model code of its own, but these should be seen as an implementation detail of the module and not exposed to downstream users. Only classes defined in the <code>models</code> module should be exposed.</p>
+								</small>
+
+								<p>Note that if a database caching layer is required in the app, this module would be a good candidate for housing it. This would involve transforming the module into an <code>android-library</code> project in order to get access to database resources (Be it SQLite, Realm, Sprinkes etc). No database calls should be exposed outside of this module - all should be masked behind the consistent <code>DataStore</code> interface.</p>
+
+								<p>This module can be tested using traditional JUnit tests. The <a href="https://github.com/square/okhttp/tree/master/mockwebserver">OkHttp MockWebServer</a> provides useful functionality for testing end-to-end functionality in conjunction with canned json responses.</p></li>
+								<li><p><code>app</code>:</p>
+
+									<small>
+										<p>Android module, with a dependency on the previous two modules which houses the actual application code. The seed contains some utilities and base classes which should all be straightforward in use. The module uses the Model-View-Presenter pattern described in detail <a href="http://hannesdorfmann.com/android/mosby/">here</a>. The basis of this pattern is to separate as much business logic as possible from its Android-specific implementation. Each Activity/Fragment implements in an interface in the package <code>.mvp.view.*</code> is is manipulated through this interface by a <code>Presenter</code> subclass in <code>.mvp.presenter.*</code>. Presenters should be responsible for all network calls, business logic and other view-agnositic functionality. This does not mean that presenters should be monolithic classes, with proper delegation of responsibilities still adhered too. </p>
+									</small>
+
+									<p>Activity/Fragment subclasses should become simple shells which implement simple functionality as defined in its associated MVP interface.</p>
+
+									<p>Following this pattern greatly reduces the burden of testing business-logic. Simple JUnit tests can be used on Presenters with mock implementations of the view interface. Robolectric, whilst available as a depencency, should be used a sparingly as possible.</p></li>
+								</ul>
+
+								<p>Popular libraries used in the seed projects include:</p>
+
+								<ul>
+									<li>RxJava (For asynchronous modelling/inter-app communication. Includes a range of companion RxAndroid dependencies)</li>
+									<li>Dagger 2 (For dependency injection)</li>
+									<li>Immutables (For immutable model generation)</li>
+									<li>Calligraphy (For custom font management)</li>
+									<li>EasyDataStore (For declarative SharedPreferences interactions)</li>
+									<li>Timber (For logging)</li>
+									<li>Picasso (For image fetching)</li>
+									<li>YearClass (For device capability assessment)</li>
+									<li>Stetho/LeakCanary (For debuggability)</li>
+									<li>Retrofit/OkHttp (For networking)</li>
+									<li>Butterknife (For view binding)</li>
+									<li>Anko (For view utilities - Kotlin Only)</li>
+									<li>Mockito/Robolectric/Espresso/Spoon/Jacoco (For testing)</li>
+									<li>Crashlytics (For crash reporting)</li>
+								</ul>
+							</div>
+						</div>
+					</main>
+
+					<footer class="mdl-mini-footer">
+						<div class="mdl-mini-footer__left-section">
+							<div class="mdl-logo">Android Seed</div>
+							<ul class="mdl-mini-footer__link-list">
+								<li><a href="/">Plant</a></li>
+								<li><a href="/about">About</a></li>
+								<li><a href="http://github.com/DanielGrech/android-seed">Github</a></li>
+							</ul>
+						</div>
+					</footer>
 				</div>
-		    </header>
-
-		    <main class="mdl-layout__content">
-				<div class="page-content">
-					<div class="card-wide">
-						<p>About goes here!</p>
-					</div>
-				</div>
-			</main>
-
-			<footer class="mdl-mini-footer">
-				<div class="mdl-mini-footer__left-section">
-					<div class="mdl-logo">Android Seed</div>
-					<ul class="mdl-mini-footer__link-list">
-						<li><a href="/">Plant</a></li>
-						<li><a href="/about">About</a></li>
-						<li><a href="http://github.com/DanielGrech/android-seed">Github</a></li>
-					</ul>
-				</div>
-			</footer>
-		</div>
-	</body>
-</html>
+			</body>
+			</html>
