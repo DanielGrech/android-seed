@@ -70,17 +70,20 @@ public abstract class Presenter<V extends MvpView> {
     }
 
     protected <R> Subscription bind(Observable<R> observable, Observer<? super R> observer) {
-        final Observable<R> boundObservable;
+        final Observable<R> sourceObservable = observable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
 
+        final Observable<R> boundObservable;
         if (view instanceof BaseFragment) {
-            boundObservable = RxUtils.bindFragment((BaseFragment) view, observable);
+            boundObservable = RxUtils.bindFragment((BaseFragment) view, sourceObservable);
         } else if (getContext() instanceof BaseActivity) {
-            boundObservable = RxUtils.bindActivity((BaseActivity) getContext(), observable);
+            boundObservable = RxUtils.bindActivity((BaseActivity) getContext(), sourceObservable);
         } else {
-            boundObservable = observable;
+            boundObservable = sourceObservable;
         }
 
-        return boundObservable.subscribeOn(Schedulers.io()).subscribe(observer);
+        return boundObservable.subscribe(observer);
     }
 
     protected class SimpleSubscriber<T> extends Subscriber<T> {

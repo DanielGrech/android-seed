@@ -55,9 +55,9 @@ public abstract class Presenter<V : MvpView>(private val view: V, private val co
     }
 
     protected fun <T> bind(observable: Observable<T>, observer: Observer<in T>): Subscription {
-        return observable.bind(getView())
-                .observeOnMainThread()
+        return observable.observeOnMainThread()
                 .subscribeOnIoThread()
+                .bind(getView())
                 .subscribe(observer)
     }
 
