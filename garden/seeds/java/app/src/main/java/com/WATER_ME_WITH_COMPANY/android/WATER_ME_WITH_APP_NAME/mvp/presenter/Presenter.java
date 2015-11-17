@@ -16,6 +16,7 @@ import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
@@ -71,8 +72,8 @@ public abstract class Presenter<V extends MvpView> {
 
     protected <R> Subscription bind(Observable<R> observable, Observer<? super R> observer) {
         final Observable<R> sourceObservable = observable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io());
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
 
         final Observable<R> boundObservable;
         if (view instanceof BaseFragment) {

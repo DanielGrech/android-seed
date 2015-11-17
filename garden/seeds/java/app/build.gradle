@@ -118,6 +118,10 @@ android {
         }
     }
 
+    configurations.all {
+        resolutionStrategy.force "com.android.support:support-annotations:${versions.androidSupport}"
+    }
+
     applicationVariants.matching { it.buildType.name == 'jacocoEnabled' }.all { createJacocoTask(it) }
 }
 
@@ -148,6 +152,7 @@ dependencies {
     compile "com.trello:rxlifecycle:${versions.rxLifecycle}"
 
     debugCompile "com.squareup.leakcanary:leakcanary-android:${versions.leakCanary}"
+    jacocoEnabledCompile "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakCanary}"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakCanary}"
 
     apt "com.google.dagger:dagger-compiler:${versions.dagger}"
